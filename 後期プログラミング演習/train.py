@@ -68,7 +68,7 @@ optimizer = torch.optim.SGD(model.parameters(),lr=learning_rate)
 # criterion (基準) とも呼ぶ
 
 # 学習回数
-n_epochs = 5
+n_epochs = 20
 
 loss_train_history = []
 loss_test_history = []
@@ -77,7 +77,7 @@ acc_test_history = []
 
 # 学習
 for k in range(n_epochs):
-    print(f'epoch {k+1}/{n_epochs}')
+    print(f'epoch {k+1}/{n_epochs}',end=' ')
 
     # 1 epoch の学習
     time_start = time.time()
@@ -90,20 +90,21 @@ for k in range(n_epochs):
     loss_test = models.test(model,dataloader_test,loss_fn)
     time_end = time.time()
     loss_test_history.append(loss_test)
-    print(f'test loss: {loss_test:.3f} ({time_end-time_start:.1f}s)',end=',')
+    print(f'test loss: {loss_test:.3f} ({time_end-time_start:.1f}s)')
 
-    # 精度を計算する
-    time_start = time.time()
-    acc_train = models.test_accuracy(model,dataloader_train)
-    time_end = time.time()
-    acc_train_history.append(acc_train)
-    print(f'train accuracy: {acc_train*100:.3f}% ({time_end-time_start:.1f}s)',end=',')
+    if (k+1) % 5 == 0:
+        # 精度を計算する
+        time_start = time.time()
+        acc_train = models.test_accuracy(model,dataloader_train)
+        time_end = time.time()
+        acc_train_history.append(acc_train)
+        print(f'train accuracy: {acc_train*100:.3f}% ({time_end-time_start:.1f}s)',end=',')
 
-    time_start = time.time()
-    acc_test = models.test_accuracy(model,dataloader_test)
-    time_end = time.time()
-    acc_test_history.append(acc_test)
-    print(f'test accuracy: {acc_test*100:.3f}% ({time_end-time_start:.1f}s)')
+        time_start = time.time()
+        acc_test = models.test_accuracy(model,dataloader_test)
+        time_end = time.time()
+        acc_test_history.append(acc_test)
+        print(f'test accuracy: {acc_test*100:.3f}% ({time_end-time_start:.1f}s)')
 
 plt.plot(acc_train_history,label='train')
 plt.plot(acc_test_history,label='test')
