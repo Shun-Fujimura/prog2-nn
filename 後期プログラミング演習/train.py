@@ -59,9 +59,6 @@ print(f'train accuracy: {acc_train*100:.2f}%')
 acc_test = models.test_accuracy(model,dataloader_test)
 print(f'test accuracy: {acc_test*100:.2f}%')
 
-
-
-
 # 損失関数 (誤差関数・ロス関数) の選択
 loss_fn = torch.nn.CrossEntropyLoss()
 
@@ -69,8 +66,6 @@ loss_fn = torch.nn.CrossEntropyLoss()
 learning_rate = 1e-3 # 学習率
 optimizer = torch.optim.SGD(model.parameters(),lr=learning_rate)
 # criterion (基準) とも呼ぶ
-
-
 
 # 学習回数
 n_epochs = 5
@@ -119,15 +114,7 @@ plt.legend()
 plt.grid()
 plt.show()
 
-
-
-
-
-
 #models.train(model,dataloader_test,loss_fn,optimizer)
 # もう一度制度を計算
 #acc_train = models.test_accuracy(model,dataloader_train)
 #print(f'test accuracy: {acc_train*100:.2f}%')
-
-
-
